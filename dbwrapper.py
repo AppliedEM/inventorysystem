@@ -14,7 +14,6 @@ import re
 divider = '---------------------------------'
 
 class dbwrapper:
-
     def __init__(self, configjson):
         self.configdat = configjson
         self.dbclient = pymongo.MongoClient(self.configdat['dburl'])
@@ -41,7 +40,7 @@ class dbwrapper:
 
     def delete_all(self):
         '''
-        WARNING: deletes all items in the working column in the db
+        WARNING: deletes all items in the working collection in the db
         '''
         col = self.db[self.colname]
         return col.delete_many({})
