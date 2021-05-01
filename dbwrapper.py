@@ -132,6 +132,16 @@ def inserttest(delete=True):
         print('cleaning up...')
         dbw.delete_all()
 
+def searchtest():
+    inserttest(False)
+    dbw = dbwrapper(confdat)
+    s = dbw.searchitems('testitem1')
+    print(divider)
+    print('searching for testitem1:')
+    for i in s:
+        print(i)
+    dbw.delete_all()
+
 def removetest():
     inserttest(False)
     print(divider)
@@ -145,16 +155,6 @@ def removetest():
     dbw.printdb()
     dbw.delete_all()
 
-def searchtest():
-    dbw = dbwrapper(confdat)
-    searchstring = 'Testitem'
-    print(divider)
-    print('db contents:')
-    dbw.printdb()
-    print(divider)
-    print('search:', searchstring)
-    dbw.searchitems(searchstring)
-
 def deletealltest():
     dbw = dbwrapper(confdat)
     print('db contents before delete')
@@ -165,7 +165,7 @@ def deletealltest():
     dbw.printdb()
     print('items deleted:',x)
 
-
+searchtest()
 #inserttest()
 #removetest()
 #searchtest()
