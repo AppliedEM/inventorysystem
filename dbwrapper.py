@@ -14,12 +14,12 @@ import re
 divider = '---------------------------------'
 
 class dbwrapper:
-    colname = 'storage'
 
     def __init__(self, configjson):
         self.configdat = configjson
         self.dbclient = pymongo.MongoClient(self.configdat['dburl'])
         self.db = self.dbclient[self.configdat['dbname']]
+        self.colname = self.configdat['collectionname']
 
     def printdb(self):
         col = self.db[self.colname]
@@ -102,6 +102,7 @@ class dbwrapper:
 
 with open('config.json', 'r') as f:
     confdat = json.loads(f.read())
+confdat['collectionname'] = 'test_collection'
 
 def inserttest(delete=True):
     dbw = dbwrapper(confdat)
@@ -143,6 +144,7 @@ def removetest():
     print('attempting again...')
     dbw.removeitem('testitem1', 'box1')
     dbw.printdb()
+    dbw.delete_all()
 
 def searchtest():
     dbw = dbwrapper(confdat)

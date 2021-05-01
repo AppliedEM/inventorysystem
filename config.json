@@ -1,4 +1,5 @@
 {
   "dburl": "vipi.local",
-  "dbname": "inventory"
+  "dbname": "inventory",
+  "collectionname": "storage"
 }
