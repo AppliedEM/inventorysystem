@@ -36,7 +36,11 @@ class dbwrapper:
         col = self.db[self.colname]
         itemname = itemname.lower()
         print('searching:',itemname)
-        return col.find({'name': itemname})
+        items = []
+        for i in col.find():
+            if re.search(itemname, i['name'], re.IGNORECASE):
+                items.append(i)
+        return items
 
     def delete_all(self):
         '''
@@ -135,9 +139,9 @@ def inserttest(delete=True):
 def searchtest():
     inserttest(False)
     dbw = dbwrapper(confdat)
-    s = dbw.searchitems('testitem1')
+    s = dbw.searchitems('testitem')
     print(divider)
-    print('searching for testitem1:')
+    print('searching for testitem:')
     for i in s:
         print(i)
     dbw.delete_all()
@@ -165,7 +169,7 @@ def deletealltest():
     dbw.printdb()
     print('items deleted:',x)
 
-searchtest()
+#searchtest()
 #inserttest()
 #removetest()
 #searchtest()
