@@ -19,12 +19,17 @@ def test():
     choices = ['insert', 'search', 'remove']
     index, choice = numquery('Please input the action you want to take: ', choices)
     if choice == 'insert':
-        print('you chose insert!')
-        exit(0)
-    location = input('please input the location of the object: ')
+        name = str(input('Please input the name of the oject: '))
+        location = str(input('please input the location of the object: '))
+        dbw.insertitem(name, location)
+        dbw.printdb()
+    elif choice == 'search':
+        name = str(input('Please input the name of the oject you are trying to find: '))
+        s = dbw.searchitems(name)
+        print('searching for testitem:')
+        if len(s) == 0:
+            print('Item not found, please use the insert option')
 
-    dbw.insertitem(name, location)
-    dbw.printdb()
 
 def testnumquery():
     a = ['heather1','heather2','heather3']
@@ -32,5 +37,5 @@ def testnumquery():
     print(i)
     print(j)
 
-# testnumquery()
-test()
+#testnumquery()
+while True: test()
