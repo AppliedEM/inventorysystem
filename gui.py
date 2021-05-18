@@ -7,23 +7,22 @@ confdat['collectionname'] = 'test_collection'
 
 def numquery(prompt, optionsarr):
     for i,j in enumerate(optionsarr):
-        print('[' + str(i) + ']' + ':\t' + j)
-    choice = int(input(prompt))
+        print('[' + str(i+1) + ']' + ':\t' + j)
+    choice = int(input(prompt))-1
+    print(choice, optionsarr[choice])
     return choice, optionsarr[choice]
 
 dbw = dbwrapper(confdat)
 
-# objective = input('What are you doing with the object?: ')
-
 def test():
-    choices = ['insert', 'search', 'remove']
+    choices = ['Insert', 'Search', 'Remove', 'Print database']
     index, choice = numquery('Please input the action you want to take: ', choices)
-    if choice == 'insert':
+    if choice == 'Insert':
         name = str(input('Please input the name of the oject: '))
         location = str(input('please input the location of the object: '))
         dbw.insertitem(name, location)
         dbw.printdb()
-    elif choice == 'search':
+    elif choice == 'Search':
         name = str. lower(input('Please input the name of the oject you are trying to find: '))
         s = dbw.searchitems(name)
         print('searching for item: ', name)
@@ -31,13 +30,15 @@ def test():
             print('Item not found, please use the insert option')
         for i in s:
             print(i)
-    elif choice == 'remove':
+    elif choice == 'Remove':
         name = str.lower(input('Please input the name of the oject you are trying to remove: '))
         location = location = str(input('please input the location of the object: '))
         s = dbw.searchitems(name)
         for i in s:
             dbw.removeitem(name, location)
             print('Item has been removed')
+    elif choice == 'Print database':
+        dbw.printdb()
 
 def testnumquery():
     a = ['heather1','heather2','heather3']
