@@ -71,7 +71,7 @@ class dbwrapper:
             newitem['modified_date'] = str(dt.datetime.now())
             col.replace_one(filter, newitem)
         else:
-            dict = {"name": itemname, "location": storagelocation, 'quantity': 1, "created_date": str(dt.datetime.now()), "modified_date": str(dt.datetime.now())}
+            dict = {"name": itemname, "location": storagelocation, 'quantity': quantity, "created_date": str(dt.datetime.now()), "modified_date": str(dt.datetime.now())}
             x = col.insert_one(dict)
             return True
         return False
