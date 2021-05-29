@@ -3,7 +3,7 @@ import json
 
 with open('config.json', 'r') as f:
     confdat = json.loads(f.read())
-confdat['collectionname'] = 'test_collection'
+#confdat['collectionname'] = 'test_collection'
 
 def numquery(prompt, optionsarr):
     for i,j in enumerate(optionsarr):
