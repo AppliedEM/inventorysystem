@@ -20,18 +20,25 @@ dbw = dbwrapper(confdat)
 def mainfunc():
     choices = ['Insert', 'Search', 'Remove', 'Print database']
     index, choice = numquery('Please input the action you want to take, or (e)xit: ', choices)
-    location = None
     if choice == 'Insert':
+        location = None
         name = str(input('Search for object, or select (n)ew: '))
         if not name == 'n':
             s = dbw.searchitems(name)
             #print([str(i['name']) + 'location: ' + str(i['location']) + 'quantity: ' + str(i['quantity']) for i in s])
-            num,n = numquery('Select the item to use, or (c)ancel: ', ['name: ' + str(i['name']) + '\tlocation: ' + str(i['location']) + '\tquantity: ' + str(i['quantity']) for i in s])
-            if not n == 'c':
+            num,n = numquery('Select the item to use, (n)ew, or (c)ancel: ', ['name: ' + str(i['name']) + '\tlocation: ' + str(i['location']) + '\tquantity: ' + str(i['quantity']) for i in s])
+            if not (n == 'c' or n == 'n'):
                 name = s[num]['name']
                 location = s[num]['location']
-            else:
+            elif n == 'c':
                 return
+            elif n == 'n':
+                name = input('Please input the name of the new object: ')
+                num,l = numquery('Please select the location to use, or choose (n)ew: ', dbw.getlocations())
+                if not l == 'n':
+                    location = l
+                else:
+                    location = str(input('Please select the new location of the object: '))
         else:
             name = input('Please enter the name of the new object: ')
             num,l = numquery('Please select the location to use, or choose (n)ew: ', dbw.getlocations())
