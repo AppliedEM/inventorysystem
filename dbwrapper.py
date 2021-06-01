@@ -14,11 +14,25 @@ import re
 divider = '---------------------------------'
 
 class dbwrapper:
+    locations = []
+
     def __init__(self, configjson):
         self.configdat = configjson
         self.dbclient = pymongo.MongoClient(self.configdat['dburl'])
         self.db = self.dbclient[self.configdat['dbname']]
         self.colname = self.configdat['collectionname']
+        self.locations = self.__initlocations()
+
+    def __initlocations(self):
+        col = self.db[self.colname].find()
+        outp = []
+        for i in col:
+            if not i['location'] in outp:
+                outp.append(i['location'])
+        return outp
+
+    def getlocations(self):
+        return self.locations
 
     def printdb(self):
         col = self.db[self.colname]
@@ -73,6 +87,8 @@ class dbwrapper:
         else:
             dict = {"name": itemname, "location": storagelocation, 'quantity': quantity, "created_date": str(dt.datetime.now()), "modified_date": str(dt.datetime.now())}
             x = col.insert_one(dict)
+            if not storagelocation in self.locations:
+                self.locations.append(storagelocation)
             return True
         return False
 
@@ -169,6 +185,18 @@ def deletealltest():
     dbw.printdb()
     print('items deleted:',x)
 
+def printdbtest():
+    dbw = dbwrapper(confdat)
+    dbw.printdb()
+
+def getlocationstest():
+    dbw = dbwrapper(confdat)
+    #inserttest(False)
+    dbw.printdb()
+    print(dbw.getlocations())
+
+#printdbtest()
+#getlocationstest()
 #searchtest()
 #inserttest()
 #removetest()

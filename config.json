@@ -1,5 +1,5 @@
 {
-  "dburl": "vipi",
+  "dburl": "192.168.1.186",
   "dbname": "inventory",
   "collectionname": "storage"
 }
