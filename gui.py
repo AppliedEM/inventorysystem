@@ -39,6 +39,9 @@ def mainfunc():
                     location = l
                 else:
                     location = str(input('Please select the new location of the object: '))
+            else:
+                print('unrecognized option. returning to menu')
+                return
         else:
             name = input('Please enter the name of the new object: ')
             num,l = numquery('Please select the location to use, or choose (n)ew: ', dbw.getlocations())
